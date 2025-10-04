@@ -1,17 +1,18 @@
 const { response } = require("express")
 const {Article, Comment} = require("./models")
 
-async function getAllArticles() {
+async function getAllArticles(req, res) {
     const articles = await Article.findAll()
-    return(articles)
+    res.json(articles)
 }
 
-async function getArticleById(articleId) {
+async function getArticleById(req,res) {
+    const articleId = req.params.id
     const article = await Article.findByPk(articleId)
     if (article){
-        return(article)
+        res.json(article)
     }else{
-        console.log("Not found")
+        console.log("Ошибка")
     }
 }
 
