@@ -3,13 +3,13 @@ const {Article, Comment} = require("./models")
 
 async function getAllArticles() {
     const articles = await Article.findAll()
-    console.log(articles.map(Article => Article.toJSON()))
+    return(articles)
 }
 
 async function getArticleById(articleId) {
     const article = await Article.findByPk(articleId)
     if (article){
-        console.log(article.toJSON())
+        return(article)
     }else{
         console.log("Not found")
     }
@@ -17,7 +17,7 @@ async function getArticleById(articleId) {
 
 async function createArticle(title, content) {
     const newArticle = await Article.create({title: title, content: content})
-    console.log(newArticle.toJSON())
+    return(newArticle)
 }
 
 async function updateArticle(title,content,articleId) {
@@ -41,13 +41,13 @@ async function getAllСomments(articleId) {
             articleId:articleId
         }
     })
-    console.log(comments.map(Comment => Comment.toJSON()))
+    return(comments)
 }
 
 async function getCommentById(commentId) {
     const comment = await Comment.findByPk(commentId)
     if (comment){
-        console.log(comment.toJSON())
+       return(comment)
     }else{
         console.log("Not found")
     }
@@ -55,7 +55,7 @@ async function getCommentById(commentId) {
 
 async function createComment(content, articleId) {
     const newComment = await Comment.create({content: content, articleId:articleId})
-    console.log(newComment.toJSON())
+    return(newComment)
 }
 
 async function updateComment(content,articleId, commentId) {
