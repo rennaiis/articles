@@ -21,7 +21,7 @@ async function createArticle(title, content) {
 }
 
 async function updateArticle(title,content,articleId) {
-    await Article.update({title: title, content:content}, {
+    const updatedArticle = await Article.update({title: title, content:content}, {
         where:{
             id:articleId
         }
@@ -31,6 +31,44 @@ async function deleteArticle(articleId) {
     await Article.destroy({
         where:{
             id:articleId
+        }
+    })
+}
+/*работа с комментариями!*/
+async function getAllСomments(articleId) {
+    const comments = await Comment.findAll({
+        where:{
+            articleId:articleId
+        }
+    })
+    console.log(comments.map(Comment => Comment.toJSON()))
+}
+
+async function getCommentById(commentId) {
+    const comment = await Comment.findByPk(commentId)
+    if (comment){
+        console.log(comment.toJSON())
+    }else{
+        console.log("Not found")
+    }
+}
+
+async function createComment(content, articleId) {
+    const newComment = await Comment.create({content: content, articleId:articleId})
+    console.log(newComment.toJSON())
+}
+
+async function updateComment(content,articleId, commentId) {
+    await Comment.update({content: content, articleId:articleId}, {
+        where:{
+            id:commentId
+        }
+    })
+}
+async function deleteComment(commentId) {
+    await Comment.destroy({
+        where:{
+            id:commentId
         }
     })
 }
