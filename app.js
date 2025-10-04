@@ -1,5 +1,5 @@
 require('dotenv').config()
-
+const {sequelize0} = require("./models")
 const express = require("express")
 
 const app = express()
