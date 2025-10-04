@@ -34,6 +34,7 @@ async function deleteArticle(articleId) {
         }
     })
 }
+
 /*работа с комментариями!*/
 async function getAllСomments(articleId) {
     const comments = await Comment.findAll({
@@ -71,4 +72,17 @@ async function deleteComment(commentId) {
             id:commentId
         }
     })
+}
+
+module.exports = {
+    getAllArticles,
+    getAllСomments, 
+    getArticleById,
+    getCommentById,
+    createArticle,
+    createComment,
+    updateArticle,
+    updateComment,
+    deleteArticle,
+    deleteComment
 }
