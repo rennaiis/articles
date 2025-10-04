@@ -1,4 +1,7 @@
 'use strict';
+
+const article = require('../models/article');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -10,10 +13,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       content: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       articleId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model:"Articles", key:"id"},
+        onDelete:"CASCADE"
       },
       createdAt: {
         allowNull: false,
