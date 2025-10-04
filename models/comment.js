@@ -6,7 +6,7 @@ const article = require('./article');
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
     static associate(models) {
-      this.belongsTo(models.Article, {foreignKey:articleId})
+      this.belongsTo(models.Article, {foreignKey:"articleId"})
     }
   }
   Comment.init({
