@@ -84,16 +84,15 @@ async function updateComment(req, res) {
     }
     await Comment.update({content: content, articleId:articleId}, {
         where:{
-            id:commentId
+            id:id
         }
     })
 }
-async function deleteComment(commentId) {
-    await Comment.destroy({
-        where:{
-            id:commentId
-        }
-    })
+async function deleteComment(req, res) {
+    id = req.params.id
+    const comment = await Comment.findByPk(id)
+    await Comment.destroy(comment)
+    res.json.status(204).json({message: "Комментарий удалён"})
 }
 
 module.exports = {
