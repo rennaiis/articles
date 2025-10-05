@@ -80,7 +80,7 @@ async function updateComment(req, res) {
     if (comment){
        res.json(comment)
     }else{
-        console.log("Not found")
+        res.status(404).json({error: "Ошибка"})
     }
     await Comment.update({content: content, articleId:articleId}, {
         where:{
