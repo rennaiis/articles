@@ -18,20 +18,20 @@ async function getArticleById(req,res) {
 
 async function createArticle(req, res) {
     const newArticle = await Article.create(req.body)
-    res.json(newArticle)
-}
+    const articles = await Article.findAll()
+    res.json(articles)
+}//возвращает список статей включая добавленную
 
 async function updateArticle(req, res) {
     const updatedArticle = await Article.findByPk(req.params.id)
     await updatedArticle.update(req.body)
     res.json(updatedArticle)
 }
-async function deleteArticle(articleId) {
-    await Article.destroy({
-        where:{
-            id:articleId
-        }
-    })
+async function deleteArticle(req, res) {
+    const deletedArticle = await Article.findByPk(req.params.id)
+    await deletedArticle.destroy()
+    const articles = await Article.findAll()
+    res.json(articles)
 }
 
 /*работа с комментариями!*/
