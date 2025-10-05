@@ -21,12 +21,10 @@ async function createArticle(req, res) {
     res.json(newArticle)
 }
 
-async function updateArticle(title,content,articleId) {
-    const updatedArticle = await Article.update({title: title, content:content}, {
-        where:{
-            id:articleId
-        }
-    })
+async function updateArticle(req, res) {
+    const updatedArticle = await Article.findByPk(req.params.id)
+    await updatedArticle.update(req.body)
+    res.json(updatedArticle)
 }
 async function deleteArticle(articleId) {
     await Article.destroy({
