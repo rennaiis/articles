@@ -1,17 +1,13 @@
 <template>
   <v-app>
-    <v-container fluid>
-      
-        
-    </v-container>
+    <v-main>
+      <router-view/>  
+    </v-main>
   </v-app>
 </template>
 
 <script>
-export default{
-  name: "app",
-  components: {
-    
-  }
-}
 </script>
+
+<style>
+</style>

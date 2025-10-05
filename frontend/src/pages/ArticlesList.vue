@@ -1,39 +1,47 @@
 <template>
-    <v-container fluid>
+    <v-container>
         <h1>Список статей</h1>
-        <v-data-iterator :items="items" v-slot = "{items}">
-        <template v-for="(item, i) in items":key="i">
-        <v-card>
-          <v-card-title>
-            <RouterLink :to="`/articles/${item.id}`">{{ item.title }}</RouterLink>
-          </v-card-title>
-
-          <v-card-text>
-            {{ item.text }}
-          </v-card-text>
-
-          <v-card-subtitle>
-            Последнее изменение: {{ item.edidedAt }}
-            Создание:{{ item.createdAt }}
-          </v-card-subtitle>
-        </v-card>
-        <br>
-        </template>
-        </v-data-iterator>
+        <v-row>
+            <v-col v-for="article in articles" :key="article.id">
+                <v-card class = "pa-4 md-4">
+                        <v-card-title>
+                        <RouterLink :to="`/articles/${article.id}`">{{ article.title }}</RouterLink>
+                        </v-card-title>
+            
+                        <v-card-text>
+                        {{ article.content }}
+                        </v-card-text>
+            
+                        <v-card-subtitle>
+                        Последнее изменение: {{dateFormat(article.editedAt) }}
+                        Создание:{{ dateFormat(article.createdAt)}}
+                        </v-card-subtitle>
+                </v-card>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
+
 <script setup>
+
   import { onMounted, ref } from 'vue'
   import axios from 'axios'
   import { RouterLink } from 'vue-router'
-  const items = ref([])
-  onMounted(async()=>{
+  function dateFormat(date){
+    if (!date){
+        return "-"
+    }else{
+        return new Date(date).toLocaleDateString()
+    }
+  }
+  const articles = ref([{id:1,title:"test",content:"textxetetetet",edidedAt:'2021-10-1',createdAt:'2021-10-1'}])
+  /*onMounted(async()=>{
     try{
         const resp = await axios.get("http://localhost:3000/articles")
-        items.value = resp.data
+        articles.value = resp.data
     }catch(err){
         console.error("Ошибка при выводе списка статей", err)
     }
-  })
+  })*/
 </script>
