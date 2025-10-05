@@ -35,13 +35,13 @@
         return new Date(date).toLocaleDateString()
     }
   }
-  const articles = ref([{id:1,title:"test",content:"textxetetetet",edidedAt:'2021-10-1',createdAt:'2021-10-1'}])
-  /*onMounted(async()=>{
+  const articles = ref([])
+  onMounted(async()=>{
     try{
         const resp = await axios.get("http://localhost:3000/articles")
         articles.value = resp.data
     }catch(err){
         console.error("Ошибка при выводе списка статей", err)
     }
-  })*/
+  })
 </script>
