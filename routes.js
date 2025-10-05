@@ -3,7 +3,10 @@ const router = express.Router
 const db_controller = require("./db_controller")
 
 router.get('/articles', db_controller.getAllArticles)
-router.get('/articles/:id', db_controller.getArticleById)
+router.get('/article/:id', db_controller.getArticleById)
 router.post('/article/:id', db_controller.createArticle)
 router.put('/article/:id', db_controller.updateArticle)
-router.delete('/articles/:id', db_controller.deleteArticle)
+router.delete('/article/:id', db_controller.deleteArticle)
+
+router.get('/article/:articleId/comment/', db_controller.getAllСomments)
+router.get('/article/:articleId/comment/:id/',db_controller.getArticleById)

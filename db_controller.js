@@ -35,19 +35,22 @@ async function deleteArticle(req, res) {
 }
 
 /*работа с комментариями!*/
-async function getAllСomments(articleId) {
+async function getAllСomments(req, res) {
+    articleId = req.params.articleId
     const comments = await Comment.findAll({
         where:{
             articleId:articleId
         }
     })
-    return(comments)
+    res.json(comments)
 }
 
-async function getCommentById(commentId) {
-    const comment = await Comment.findByPk(commentId)
+async function getCommentById(req, res) {
+    articleId = req.params.articleId
+    id = req.params.commentId
+    const comment = await Comment.findByPk(id)
     if (comment){
-       return(comment)
+       res.json(comment)
     }else{
         console.log("Not found")
     }
