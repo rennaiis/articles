@@ -3,96 +3,142 @@ const {Article, Comment} = require("./models")
 const article = require("./models/article")
 
 async function getAllArticles(req, res) {
-    const articles = await Article.findAll()
-    if (articles){
-        res.status(200).json(articles)
-    }else{
-        res.status(500).json({error: "Ошибка"})
-    }
-    
-} //готово
-
-async function getArticleById(req,res) {
-    const articleId = req.params.id
-    const article = await Article.findByPk(articleId)
-    if (article){
-        res.json(article)
-    }else{
-        res.status(500).json({error: "Ошибка"})
-    }
-} 
-async function createArticle(req, res) {
-    const newArticle = await Article.create(req.body)
-    if (newArticle){
-        res.json(newArticle)
-    }else{
+    try{
+        const articles = await Article.findAll()
+        res.json(articles)
+    }catch(err){
+        console.error(err)
         res.status(500).json({error: "Ошибка"})
     }
 }
 
-async function updateArticle(req, res) {
-    const updatedArticle = await Article.findByPk(req.params.id)
-    await updatedArticle.update(req.body)
-    if (updatedArticle){
-        res.json(updatedArticle)
+async function getArticleById(req,res) {
+    try{
+    const id = req.params.id
+    const article = await Article.findByPk(id)
+    if (!article){
+        res.status(404).json({ error: 'Статья не найдена' });
     }else{
+        res.json(article)
+    }
+    
+    }catch(err){
+        console.error(err)
         res.status(500).json({error: "Ошибка"})
+    }
+} 
+async function createArticle(req, res) {
+    try{
+        const newArticle = await Article.create(req.body)
+        res.json(newArticle)
+    }catch(err){
+        console.error(err)
+        res.status(400).json({error: "Введите корректные данные"})
+    }
+}
+
+async function updateArticle(req, res) {
+    try{
+        const updatedArticle = await Article.findByPk(req.params.id)
+        if (!updatedArticle){
+            res.status(404).json({error: "Cтатья не найдена"})
+        }else{
+            await updatedArticle.update(req.body)
+            res.json(updatedArticle)
+        }
+    }catch(err){
+        console.error(err)
+        res.status(400).json({error: "Неверные данные"})
     }
     
 }
 
 async function deleteArticle(req, res) {
-    const deletedArticle = await Article.findByPk(req.params.id)
-    await deletedArticle.destroy()
-    res.json.status(204).json({message: "Статья удалена"})
+    try{
+        const deletedArticle = await Article.findByPk(req.params.id)
+        if (!deletedArticle){
+            res.status(404).json({error: "Cтатья не найдена"})
+        }else{
+            await deletedArticle.destroy()
+            res.json({message: "Статья удалена"})
+        }
+    }catch(err){
+        console.error(err)
+        res.status(500).json({error: "Ошибка"})
+    }
 }
 
 /*работа с комментариями!*/
 async function getAllСomments(req, res) {
-    articleId = req.params.articleId
-    const comments = await Comment.findAll({
+    try{
+        const articleId = req.params.articleId
+        const comments = await Comment.findAll({
         where:{
             articleId:articleId
         }
     })
     res.json(comments)
+    }catch(err){
+        console.error(err)
+        res.status(500).json({error: "Ошибка"})
+    }
 }
 
 async function getCommentById(req, res) {
-    articleId = req.params.articleId
-    id = req.params.id
-    const comment = await Comment.findByPk(id)
-    if (comment){
-        res.json(comment)
-    }else{
-        res.status(404).json({error: "Ошибка"})
+    try{
+        const id = req.params.id
+        const comment = await Comment.findByPk(id)
+        if (!comment){
+            res.status(404).json({ error: 'Комментарий не найден' });
+        }else{
+            res.json(comment)
+        } 
+    }catch(err){
+        console.error(err)
+        res.status(500).json({error: "Ошибка"})
     }
 }
 
 async function createComment(req, res) {
-    const newComment = await Comment.create(body)
-    res.json(newComment)
+    try{
+        const newComment = await Comment.create(body)
+        res.json(newComment)
+    }catch(err){
+        console.error(err)
+        res.status(400).json({ error: 'Введите корректные значения'})
+    }
+    
 }
 
 async function updateComment(req, res) {
-    id = req.params.id
-    const comment = await Comment.findByPk(id)
-    if (comment){
-       res.json(comment)
-    }else{
-        res.status(404).json({error: "Ошибка"})
-    }
-    await Comment.update({content: content, articleId:articleId}, {
-        where:{
-            id:id
+    try{
+        const id = req.params.id
+        const updatedComment = await Comment.findByPk(id)
+        if(!updatedComment){
+            res.status(404).json({ error: 'Комментарий не найден' })
+        }else{
+            res.json(updatedComment)
         }
-    })
+    }catch(err){
+        console.error(err)
+        res.status(400).json({ error: 'Введите корректные значения'})
+    }
+    
 }
 async function deleteComment(req, res) {
-    id = req.params.id
-    const comment = await Comment.findByPk(id)
-    await Comment.destroy(comment)
-    res.json.status(204).json({message: "Комментарий удалён"})
+    try{
+        const id = req.params.id
+        const deletedComment = await Comment.findByPk(id)
+        if (!deletedComment){
+            res.status(404).json({ error: 'Комментарий не найден' })
+        }else{
+            await Comment.destroy(comment)
+            res.json.status(204).json({message: "Комментарий удалён"})
+        }
+    }catch(err){
+        console.error(err)
+        res.status(500).json({error: "Ошибка"})
+    }    
 }
 
 module.exports = {
