@@ -1,10 +1,16 @@
 const { response } = require("express")
 const {Article, Comment} = require("./models")
+const article = require("./models/article")
 
 async function getAllArticles(req, res) {
     const articles = await Article.findAll()
-    res.json(articles)
-}
+    if (articles){
+        res.status(200).json(articles)
+    }else{
+        res.status(500).json({error: "Ошибка"})
+    }
+    
+} //готово
 
 async function getArticleById(req,res) {
     const articleId = req.params.id
@@ -12,26 +18,33 @@ async function getArticleById(req,res) {
     if (article){
         res.json(article)
     }else{
-        console.log("Ошибка")
+        res.status(500).json({error: "Ошибка"})
     }
-}
-
+} 
 async function createArticle(req, res) {
     const newArticle = await Article.create(req.body)
-    const articles = await Article.findAll()
-    res.json(newArticle)
+    if (newArticle){
+        res.json(newArticle)
+    }else{
+        res.status(500).json({error: "Ошибка"})
+    }
 }
 
 async function updateArticle(req, res) {
     const updatedArticle = await Article.findByPk(req.params.id)
     await updatedArticle.update(req.body)
-    res.json(updatedArticle)
+    if (updatedArticle){
+        res.json(updatedArticle)
+    }else{
+        res.status(500).json({error: "Ошибка"})
+    }
+    
 }
+
 async function deleteArticle(req, res) {
     const deletedArticle = await Article.findByPk(req.params.id)
     await deletedArticle.destroy()
-    const articles = await Article.findAll()
-    res.json.send()
+    res.json.status(204).json({message: "Статья удалена"})
 }
 
 /*работа с комментариями!*/
@@ -47,12 +60,12 @@ async function getAllСomments(req, res) {
 
 async function getCommentById(req, res) {
     articleId = req.params.articleId
-    id = req.params.commentId
+    id = req.params.id
     const comment = await Comment.findByPk(id)
     if (comment){
-       res.json(comment)
+        res.json(comment)
     }else{
-        console.log("Not found")
+        res.status(404).json({error: "Ошибка"})
     }
 }
 
@@ -61,7 +74,14 @@ async function createComment(req, res) {
     res.json(newComment)
 }
 
-async function updateComment(content,articleId, commentId) {
+async function updateComment(req, res) {
+    id = req.params.id
+    const comment = await Comment.findByPk(id)
+    if (comment){
+       res.json(comment)
+    }else{
+        console.log("Not found")
+    }
     await Comment.update({content: content, articleId:articleId}, {
         where:{
             id:commentId
