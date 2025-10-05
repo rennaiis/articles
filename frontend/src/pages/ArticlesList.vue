@@ -18,6 +18,9 @@
                         </v-card-subtitle>
                 </v-card>
             </v-col>
+            <RouterLink :to="`/article`">
+                <v-btn color: primary >Добавить статью</v-btn>
+            </RouterLink>
         </v-row>
     </v-container>
 </template>
