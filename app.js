@@ -1,10 +1,12 @@
 require('dotenv').config()
 const {sequelize} = require("./models")
 const express = require("express")
+const routes = require("./routes")
 
 const app = express()
 app.use(express.json())
-const port = process.env.PORT
+app.use('/', routes)
+const PORT = process.env.PORT
 async function test(){
     try{
         await sequelize.authenticate();
@@ -15,7 +17,8 @@ async function test(){
 }
 
 const { response } = require("express")
-app.get('/', (request, resoponse)=>{
+
+/*app.get('/', (request, resoponse)=>{
     response.send("работает")
-})
-app.listen(port, ()=>console.log(`сервер запущен по ссылке http://localhost:${port}`))
+})*/
+app.listen(PORT, ()=>console.log(`сервер запущен по ссылке http://localhost:${PORT}`))

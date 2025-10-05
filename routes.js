@@ -15,3 +15,4 @@ router.put('/article/:articleId/comment/:id/', db_controller.updateComment)
 router.delete('/article/:articleId/comment/:id/', db_controller.deleteComment)
 
 router.get('/analytic/comments', db_controller.filterComments)
+module.exports(router)
