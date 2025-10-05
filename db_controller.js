@@ -1,6 +1,7 @@
 const { response } = require("express")
 const {Article, Comment} = require("./models")
 const article = require("./models/article")
+const { where, Model } = require("sequelize")
 
 async function getAllArticles(req, res) {
     try{
@@ -141,6 +142,27 @@ async function deleteComment(req, res) {
     }    
 }
 
+async function filterComments(req,res){
+    try{
+        const dateFrom = new Date(req.query.dateFrom)
+        const dateTo = new Date(req.query.dateTo)
+        const ArticlesWithComments = Article.findAll({
+            include:[{
+                model: Comment,
+                where: {
+                    createdAt:{
+                        [Op.between]:[dateFrom,dateTo]
+                    }
+                }
+            }]
+        })
+        req.json(ArticlesWithComments)
+    }catch(err){
+        console.error(err)
+        res.status(500).json({error: "Ошибка"})
+    }
+}
+
 module.exports = {
     getAllArticles,
     getAllСomments, 
@@ -151,5 +173,6 @@ module.exports = {
     updateArticle,
     updateComment,
     deleteArticle,
-    deleteComment
+    deleteComment,
+    filterComments
 }
