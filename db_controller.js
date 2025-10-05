@@ -19,8 +19,8 @@ async function getArticleById(req,res) {
 async function createArticle(req, res) {
     const newArticle = await Article.create(req.body)
     const articles = await Article.findAll()
-    res.json(articles)
-}//возвращает список статей включая добавленную
+    res.json(newArticle)
+}
 
 async function updateArticle(req, res) {
     const updatedArticle = await Article.findByPk(req.params.id)
@@ -31,7 +31,7 @@ async function deleteArticle(req, res) {
     const deletedArticle = await Article.findByPk(req.params.id)
     await deletedArticle.destroy()
     const articles = await Article.findAll()
-    res.json(articles)
+    res.json.send()
 }
 
 /*работа с комментариями!*/
@@ -56,9 +56,9 @@ async function getCommentById(req, res) {
     }
 }
 
-async function createComment(content, articleId) {
-    const newComment = await Comment.create({content: content, articleId:articleId})
-    return(newComment)
+async function createComment(req, res) {
+    const newComment = await Comment.create(body)
+    res.json(newComment)
 }
 
 async function updateComment(content,articleId, commentId) {
