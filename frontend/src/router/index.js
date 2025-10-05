@@ -7,7 +7,7 @@ import commentsAnalytics from '@/pages/CommentsAnalytics.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/articles',
     name: 'Articles',
     component: ArticlesList
   }

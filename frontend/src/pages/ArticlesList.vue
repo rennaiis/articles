@@ -7,7 +7,7 @@
                         <v-card-title>
                         <RouterLink :to="`/articles/${article.id}`">{{ article.title }}</RouterLink>
                         </v-card-title>
-            
+                        
                         <v-card-text>
                         {{ article.content }}
                         </v-card-text>
