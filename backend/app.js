@@ -1,17 +1,20 @@
+const cors = require("cors")
 require('dotenv').config()
 const {sequelize} = require("./models")
 const express = require("express")
 const routes = require("./routes")
-const cors = require("cors")
-const app = express()
-app.use(express.json())
-app.use('/', routes)
 
+
+const app = express()
 app.use(cors({
     origin:'http://localhost:8080',
     methods:['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
     allowedHeaders:['Content-Type']
 }))
+app.use(express.json())
+app.use('/', routes)
+
+
 const PORT = process.env.PORT
 async function test(){
     try{
