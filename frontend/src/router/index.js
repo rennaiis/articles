@@ -10,7 +10,13 @@ const routes = [
     path: '/articles',
     name: 'Articles',
     component: ArticlesList
+  },
+  {
+    path: '/article/:id',
+    name: 'Article',
+    component: Article
   }
+
 ]
 
 const router = createRouter({
