@@ -16,9 +16,9 @@ async function getArticleById(req,res) {
     }
 }
 
-async function createArticle(title, content) {
-    const newArticle = await Article.create({title: title, content: content})
-    return(newArticle)
+async function createArticle(req, res) {
+    const newArticle = await Article.create(req.body)
+    res.json(newArticle)
 }
 
 async function updateArticle(title,content,articleId) {
