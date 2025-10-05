@@ -1,15 +1,28 @@
-<v-data-iterator :items="items" page="page">
-  <template v-slot:default="{ items }">
-    <template
-      v-for="(item, i) in items"
-      :key="i"
-    >
-      <v-card v-bind="item.raw"></v-card>
+<template>
+    <v-container fluid>
+        <h1>Список статей</h1>
+        <v-data-iterator :items="items" v-slot = "{items}">
+        <template v-for="(item, i) in items":key="i">
+        <v-card>
+          <v-card-title>
+            заголовок-ссылка
+          </v-card-title>
 
-      <br>
-    </template>
-  </template>
-</v-data-iterator>
+          <v-card-text>
+            содержимое статьи
+          </v-card-text>
+
+          <v-card-subtitle>
+            Последнее изменение: 
+            Создание: 
+          </v-card-subtitle>
+        </v-card>
+        <br>
+        </template>
+        </v-data-iterator>
+    </v-container>
+</template>
+
 <script setup>
   import { ref } from 'vue'
 
