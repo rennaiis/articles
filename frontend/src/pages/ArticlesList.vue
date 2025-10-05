@@ -14,7 +14,7 @@
 
           <v-card-subtitle>
             Последнее изменение: 
-            Создание: 
+            Создание:
           </v-card-subtitle>
         </v-card>
         <br>
@@ -24,11 +24,15 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
-
-  const page = ref(1)
-  const items = Array.from({ length: 15 }, (k, v) => ({
-    title: 'Item ' + v + 1,
-    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima, at placeat totam, magni doloremque veniam neque porro libero rerum unde voluptatem!',
-  }))
+  import { onMounted, ref } from 'vue'
+  import axios from 'axios'
+  const items = ref([])
+  onMounted(async()=>{
+    try{
+        const resp = await axios.get("http://localhost:3000/articles")
+        items.value = resp.data
+    }catch(err){
+        console.error("Ошибка при выводе списка статей", err)
+    }
+  })
 </script>
