@@ -1,6 +1,8 @@
 <template>
     <v-container>
-        <v-card title="Статья 2322" subtitle="дата создания дата модификации" text="лялялляяляллялляля">
+        <v-card :title="article.title" 
+            :subtitle="dates(dateFormat(article.createdAt), dateFormat(article.updatedAt))"
+            :text="article.content">
             <v-card-actions>
                  <RouterLink :to="`/article/:id/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
                  <RouterLink :to="`/article/:id/delete`"><v-btn>Удалить</v-btn></RouterLink>
@@ -9,10 +11,10 @@
         <h2>Комментарии</h2>
         <v-list lines="one">
             <v-list-item
-                v-for="n in 3"
-                :key="n"
-                :title="'текст коммента текст коммента'"
-                subtitle="дата создания и дата редактирования"   
+                v-for="c in comments"
+                :key="c.id"
+                :title="c.content"
+                subtitle="dates(dateFormat(c.createdAt), dateFormat(c.updatedAt))" 
             >
             <v-card-actions>
                 <RouterLink :to="`/comment/:id/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
@@ -26,10 +28,11 @@
 
     </v-container>
 </template>
-<script>
+<script setup>
     import { onMounted, ref } from 'vue'
     import axios from 'axios'
-    import { RouterLink } from 'vue-router'
+    import { RouterLink, useRoute, useRouter } from 'vue-router'
+
     
     function dateFormat(date){
         if (!date){
@@ -38,15 +41,32 @@
             return new Date(date).toLocaleDateString()
         }
     }
-    const article = ref()
+    function dates(d1, d2){
+        return `создано ${d1}, изменено ${d2}`
+    }
+    const article = ref({title:'', content: '', creratedAt: '', updatedAt:''})
     const comments = ref([])
+    const newComment = ref()
+    const route = useRoute()
+    const router = useRouter()
+    const id = route.params.id
     async function getComments(){
-        const resp = axios.get(`http://localhost:3000/article/${id}/comments/`)
+        const resp = await axios.get(`http://localhost:3000/article/${id}/comments/`)
         comments.value = resp.data        
     }
     async function getArticle(){
-        const resp = axios.get(`http://localhost:3000/article/${id}`)
+        const resp = await axios.get(`http://localhost:3000/article/${id}`)
         article.value = resp.data        
     }
+    
+    onMounted(async()=>{
+        try{
+            await getArticle()
+            await getComments()
+        }catch(err){
+            console.error("Ошибка", err)
+        }
+    })
+    
 
 </script>
