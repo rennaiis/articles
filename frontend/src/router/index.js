@@ -5,7 +5,7 @@ import addArticle from '@/pages/addArticle.vue'
 import editArticle from '@/pages/editArticle.vue'
 import editComment from '@/pages/editComment.vue'
 import commentsAnalytics from '@/pages/CommentsAnalytics.vue'
-
+import commentsAnalyticsList from '@/pages/commentsAnalyticsList.vue'
 const routes = [
   {
     path: '/',
@@ -40,6 +40,11 @@ const routes = [
     path: '/analytic/comments',
     name: "commentsAnalytics",
     component: commentsAnalytics
+  },
+  {
+    path:'/analytic/comments/list',
+    name:'commentsAnalyticsList', 
+    component: commentsAnalyticsList
   }
 ]
 

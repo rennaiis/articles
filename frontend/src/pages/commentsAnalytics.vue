@@ -7,7 +7,6 @@
           v-model="dateFrom"
         >
         </v-date-picker>
-
       
         <v-date-picker
           v-model="dateTo"
@@ -16,21 +15,18 @@
      
     </v-row>
 
-    <v-btn
+    
+    <RouterLink :to="`/analytic/comments/list?dateFrom=${dateFrom}&dateTo=${dateTo}`"><v-btn
       color="primary"
       :disabled="!dateFrom || !dateTo"
-      :to="`/comments/analytics/list?dateFrom=${dateFrom}&dateTo=${dateTo}`"
     >
       Показать комментарии
-    </v-btn>
+    </v-btn></RouterLink>
   </v-container>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-
-const dateFrom = ref(null)
-const dateTo = ref(null)
-const dateFromMenu = ref(false)
-const dateToMenu = ref(false)
+const dateFrom = ref()
+const dateTo = ref()
 </script>
