@@ -19,4 +19,17 @@
 </v-container>
 </template>
 <script>
+    import {ref, onMounted} from 'vue'
+    import axios from 'axios'
+    import { useRouter, useRoute } from 'vue-router'
+    const router = useRouter()
+    const route = useRoute()
+    const title = ref('')
+    const content = ref('')
+    onMounted(async()=>{
+        const articleId = route.params.id
+        const resp = await axios.get(`http://localhost:3000/article/${articleId}`)
+        title.value = resp.data.title
+        content.value = resp.data.content
+    })
 </script>
