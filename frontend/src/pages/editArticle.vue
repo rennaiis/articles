@@ -13,12 +13,10 @@
         :rules="contentRules"
         label="текст статьи"
       ></v-textarea>
-      <v-btn class="mt-2" @click="onSubmit">Сохранить</v-btn>
+      <v-btn class="mt-2" type="submit">Сохранить</v-btn>
     </v-form>
   </v-sheet>
 </v-container>
 </template>
-
-
 <script>
 </script>

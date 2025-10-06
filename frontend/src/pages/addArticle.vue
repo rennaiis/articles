@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-sheet class="mx-auto">
-    <v-form fast-fail @submit.prevent>
+    <v-form fast-fail @submit.prevent="onSubmit">
       <v-text-field
         v-model="title"
         :rules="titleRules"
@@ -13,7 +13,7 @@
         :rules="contentRules"
         label="текст статьи"
       ></v-textarea>
-      <v-btn class="mt-2" @click="onSubmit">Создать</v-btn>
+      <v-btn class="mt-2" type="submit">Создать</v-btn>
     </v-form>
   </v-sheet>
 </v-container>
