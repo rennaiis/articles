@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-sheet class="mx-auto">
-    <v-form fast-fail @submit.prevent>
+    <v-form fast-fail @submit.prevent="onSubmit">
       <v-text-field
         v-model="title"
         :rules="titleRules"
@@ -18,7 +18,7 @@
   </v-sheet>
 </v-container>
 </template>
-<script>
+<script setup>
     import {ref, onMounted} from 'vue'
     import axios from 'axios'
     import { useRouter, useRoute } from 'vue-router'
@@ -32,4 +32,14 @@
         title.value = resp.data.title
         content.value = resp.data.content
     })
+    async function onSubmit() {
+        try{
+            const articleId = route.params.id
+            const payload = {title: title.value, content:content.value}
+            await axios.put(`http://localhost:3000/article/${articleId}`,payload)
+            router.push('/articles')
+        }catch(err){
+            console.error("Ошибка при редактировании статьи", err)
+        }
+    }
 </script>

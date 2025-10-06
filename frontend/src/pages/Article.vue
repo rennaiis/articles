@@ -4,7 +4,7 @@
             :subtitle="dates(dateFormat(article.createdAt), dateFormat(article.updatedAt))"
             :text="article.content">
             <v-card-actions>
-                 <RouterLink :to="`/article/${article.id}/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
+                 <RouterLink :to="`/articles/${article.id}/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
                  <v-btn @click="deleteArticle(article.id)">Удалить</v-btn>
             </v-card-actions>
         </v-card>
