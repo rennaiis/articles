@@ -5,7 +5,7 @@
             :text="article.content">
             <v-card-actions>
                  <RouterLink :to="`/article/${article.id}/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
-                 <RouterLink :to="`/article${article.id}/delete`"><v-btn>Удалить</v-btn></RouterLink>
+                 <v-btn @click="deleteArticle(article.id)">Удалить</v-btn>
             </v-card-actions>
         </v-card>
         <h2>Комментарии</h2>
@@ -74,9 +74,16 @@
             this.comments = this.comments.filter(c => c.id !== commentId)
             const resp = await axios.delete(`http://localhost:3000/article/${id}/comment/${commentId}`)
             comments.value.push(resp.data)
-            newComment.value = ''
         }catch(err){
             console.error("Ошибка при удалении комменатрия", err)
+        }
+        
+    }
+    async function deleteArticle(articleId) {
+        try{
+            const resp = await axios.delete(`http://localhost:3000/article/${articleId}`)
+        }catch(err){
+            console.error("Ошибка при удалении статьи", err)
         }
         
     }
