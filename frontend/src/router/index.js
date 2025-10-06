@@ -35,6 +35,11 @@ const routes = [
     path: '/articles/:articleId/comment/:id',
     name: "editComment",
     component: editComment
+  }, 
+  {
+    path: '/analytic/comments',
+    name: "commentsAnalytics",
+    component: commentsAnalytics
   }
 ]
 

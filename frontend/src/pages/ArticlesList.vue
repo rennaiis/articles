@@ -13,13 +13,15 @@
                         </v-card-text>
             
                         <v-card-subtitle>
-                        Последнее изменение: {{dateFormat(article.editedAt) }}
-                        Создание:{{ dateFormat(article.createdAt)}}
+                        Создана:{{ dateFormat(article.createdAt)}}
                         </v-card-subtitle>
                 </v-card>
             </v-col>
             <RouterLink :to="`/article`">
                 <v-btn color: primary >Добавить статью</v-btn>
+            </RouterLink>
+            <RouterLink :to="`/analytic/comments`">
+                <v-btn color: primary >Анализ комментариев</v-btn>
             </RouterLink>
         </v-row>
     </v-container>
