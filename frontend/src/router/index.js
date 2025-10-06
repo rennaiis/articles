@@ -3,6 +3,7 @@ import ArticlesList from '@/pages/ArticlesList.vue'
 import Article from '@/pages/Article.vue'
 import addArticle from '@/pages/addArticle.vue'
 import editArticle from '@/pages/editArticle.vue'
+import editComment from '@/pages/editComment.vue'
 import commentsAnalytics from '@/pages/CommentsAnalytics.vue'
 
 const routes = [
@@ -20,8 +21,17 @@ const routes = [
     path: '/article',
     name: 'addArticle', 
     component: addArticle
+  }, 
+  {
+    path: '/articles/:id/edit',
+    name: "editArticle",
+    component: editArticle
+  }, 
+  {
+    path: '/comments/:id/edit',
+    name: "editComment",
+    component: editComment
   }
-
 ]
 
 const router = createRouter({
