@@ -82,6 +82,7 @@
     async function deleteArticle(articleId) {
         try{
             const resp = await axios.delete(`http://localhost:3000/article/${articleId}`)
+            this.$router.push('/articles')
         }catch(err){
             console.error("Ошибка при удалении статьи", err)
         }
