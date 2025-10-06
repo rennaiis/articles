@@ -33,7 +33,7 @@
         const query = route.query
         try {
             
-            const resp = await axios.get('http://localhost:3000/analytic/comments', {
+            const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/analytic/comments`, {
             params: {
                 dateFrom: query.dateFrom,
                 dateTo: query.dateTo

@@ -24,13 +24,13 @@
     const commentId = route.params.id
     const articleId = route.params.articleId
     onMounted(async()=>{
-        const resp = await axios.get(`http://localhost:3000/article/${articleId}/comment/${commentId}`)
+        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}/comment/${commentId}`)
         content.value = resp.data.content
     })
     async function onSubmit() {
         try{
             const payload = {content:content.value}
-            await axios.put(`http://localhost:3000/article/${articleId}/comment/${commentId}`,payload)
+            await axios.put(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}/comment/${commentId}`,payload)
             router.push(`/articles/${articleId}`)
         }catch(err){
             console.error("Ошибка при редактировании комментария", err)

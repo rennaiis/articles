@@ -41,7 +41,7 @@
   const articles = ref([])
   onMounted(async()=>{
     try{
-        const resp = await axios.get("http://localhost:3000/articles")
+        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/articles`)
         articles.value = resp.data
     }catch(err){
         console.error("Ошибка при выводе списка статей", err)

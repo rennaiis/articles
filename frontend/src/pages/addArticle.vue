@@ -36,7 +36,7 @@
     async function onSubmit() {
         try{
             const payload = {title: title.value, content:content.value}
-            await axios.post('http://localhost:3000/article',payload)
+            await axios.post(`${process.env.VUE_APP_API_ADRESS}/article`,payload)
             router.push('/articles')
         }catch(err){
             console.error("Ошибка при создании статьи", err)

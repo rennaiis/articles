@@ -51,17 +51,17 @@
     const id = route.params.id
 
     async function getComments(){
-        const resp = await axios.get(`http://localhost:3000/article/${id}/comments/`)
+        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/article/${id}/comments/`)
         comments.value = resp.data        
     }
     async function getArticle(){
-        const resp = await axios.get(`http://localhost:3000/article/${id}`)
+        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/article/${id}`)
         article.value = resp.data        
     }
     async function addComment() {
         try{
             const payload = {content: newComment.value, articleId: Number(id)}
-            const resp = await axios.post(`http://localhost:3000/article/${id}/comment`, payload)
+            const resp = await axios.post(`${process.env.VUE_APP_API_ADRESS}/article/${id}/comment`, payload)
             comments.value.push(resp.data)
             newComment.value = ''
         }catch(err){
@@ -72,7 +72,7 @@
     async function deleteComment(commentId) {
         try{
             this.comments = this.comments.filter(c => c.id !== commentId)
-            const resp = await axios.delete(`http://localhost:3000/article/${id}/comment/${commentId}`)
+            const resp = await axios.delete(`${process.env.VUE_APP_API_ADRESS}/article/${id}/comment/${commentId}`)
             comments.value.push(resp.data)
         }catch(err){
             console.error("Ошибка при удалении комменатрия", err)
@@ -81,7 +81,7 @@
     }
     async function deleteArticle(articleId) {
         try{
-            const resp = await axios.delete(`http://localhost:3000/article/${articleId}`)
+            const resp = await axios.delete(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}`)
             this.router.push('/articles')
         }catch(err){
             console.error("Ошибка при удалении статьи", err)

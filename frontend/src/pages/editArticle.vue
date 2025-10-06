@@ -28,7 +28,7 @@
     const content = ref('')
     onMounted(async()=>{
         const articleId = route.params.id
-        const resp = await axios.get(`http://localhost:3000/article/${articleId}`)
+        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}`)
         title.value = resp.data.title
         content.value = resp.data.content
     })
@@ -36,7 +36,7 @@
         try{
             const articleId = route.params.id
             const payload = {title: title.value, content:content.value}
-            await axios.put(`http://localhost:3000/article/${articleId}`,payload)
+            await axios.put(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}`,payload)
             router.push('/articles')
         }catch(err){
             console.error("Ошибка при редактировании статьи", err)
