@@ -57,11 +57,16 @@ async function updateArticle(req, res) {
 
 async function deleteArticle(req, res) {
     try{
+        id = req.params.id
         const deletedArticle = await Article.findByPk(req.params.id)
         if (!deletedArticle){
             res.status(404).json({error: "Cтатья не найдена"})
         }else{
-            await deletedArticle.destroy()
+            await Article.destroy({
+                where:{
+                    id:id
+                }
+            })
             res.json({message: "Статья удалена"})
         }
     }catch(err){

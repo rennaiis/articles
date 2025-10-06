@@ -71,6 +71,7 @@
     }
     async function deleteComment(commentId) {
         try{
+            this.comments = this.comments.filter(c => c.id !== commentId)
             const resp = await axios.delete(`http://localhost:3000/article/${id}/comment/${commentId}`)
             comments.value.push(resp.data)
             newComment.value = ''
