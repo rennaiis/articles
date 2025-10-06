@@ -9,9 +9,9 @@ router.put('/article/:id', db_controller.updateArticle)
 router.delete('/article/:id', db_controller.deleteArticle)
 
 router.get('/article/:articleId/comments/', db_controller.getAllСomments)
-router.get('/article/:articleId/comment/:id/',db_controller.getCommentById)
+router.get('/article/:articleId/comment/:id',db_controller.getCommentById)
 router.post('/article/:articleId/comment', db_controller.createComment)
-router.put('/article/:articleId/comment/:id/', db_controller.updateComment)
+router.put('/article/:articleId/comment/:id', db_controller.updateComment)
 router.delete('/article/:articleId/comment/:id/', db_controller.deleteComment)
 
 router.get('/analytic/comments', db_controller.filterComments)

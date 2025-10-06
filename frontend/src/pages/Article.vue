@@ -17,7 +17,7 @@
                 :subtitle="dates(dateFormat(c.createdAt), dateFormat(c.updatedAt))" 
             >
             <v-card-actions>
-                <RouterLink :to="`/comments/${c.id}/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
+                <RouterLink :to="`/articles/${String(c.articleId)}/comment/${String(c.id)}`"><v-btn>Редактировать</v-btn></RouterLink> 
                 <v-btn @click="deleteComment(c.id)">Удалить</v-btn>
             </v-card-actions>
             </v-list-item>

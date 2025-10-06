@@ -28,7 +28,7 @@ const routes = [
     component: editArticle
   }, 
   {
-    path: '/comments/:id/edit',
+    path: '/articles/:articleId/comment/:id',
     name: "editComment",
     component: editComment
   }

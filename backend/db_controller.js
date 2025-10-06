@@ -125,6 +125,7 @@ async function updateComment(req, res) {
         if(!updatedComment){
             res.status(404).json({ error: 'Комментарий не найден' })
         }else{
+            await updatedComment.update(req.body)
             res.json(updatedComment)
         }
     }catch(err){

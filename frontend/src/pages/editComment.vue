@@ -1,7 +1,7 @@
 <template>
 <v-container>
   <v-sheet class="mx-auto">
-    <v-form fast-fail @submit.prevent>
+    <v-form fast-fail @submit.prevent="onSubmit">
       <v-textarea
         v-model="content"
         :rules="contentRules"
@@ -15,5 +15,25 @@
 
 
 <script setup>
-
+   import {ref, onMounted} from 'vue'
+    import axios from 'axios'
+    import { useRouter, useRoute } from 'vue-router'
+    const router = useRouter()
+    const route = useRoute()
+    const content = ref('')
+    const commentId = route.params.id
+    const articleId = route.params.articleId
+    onMounted(async()=>{
+        const resp = await axios.get(`http://localhost:3000/article/${articleId}/comment/${commentId}`)
+        content.value = resp.data.content
+    })
+    async function onSubmit() {
+        try{
+            const payload = {content:content.value}
+            await axios.put(`http://localhost:3000/article/${articleId}/comment/${commentId}`,payload)
+            router.push(`/articles/${articleId}`)
+        }catch(err){
+            console.error("Ошибка при редактировании комментария", err)
+        }
+    }
 </script>
