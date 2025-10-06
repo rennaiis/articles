@@ -15,6 +15,11 @@ const routes = [
     path: '/articles/:id',
     name: 'Article',
     component: Article
+  },
+  {
+    path: '/article',
+    name: 'addArticle', 
+    component: addArticle
   }
 
 ]
