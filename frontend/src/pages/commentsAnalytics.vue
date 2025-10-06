@@ -16,17 +16,15 @@
     </v-row>
 
     
-    <RouterLink :to="`/analytic/comments/list?dateFrom=${dateFrom}&dateTo=${dateTo}`"><v-btn
-      color="primary"
-      :disabled="!dateFrom || !dateTo"
-    >
-      Показать комментарии
-    </v-btn></RouterLink>
-  </v-container>
+    <RouterLink :to="dateFrom && dateTo ? `/analytic/comments/list?dateFrom=${dateFrom.getTime()}&dateTo=${dateTo.getTime()}`:'#'">
+        <v-btn color="primary":disabled="!dateFrom || !dateTo">
+        Показать комментарии
+        </v-btn></RouterLink>
+    </v-container>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const dateFrom = ref()
-const dateTo = ref()
+    import { ref } from 'vue'
+    const dateFrom = ref()
+    const dateTo = ref()
 </script>

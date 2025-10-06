@@ -1,7 +1,7 @@
 const { response } = require("express")
 const {Article, Comment} = require("./models")
 const article = require("./models/article")
-const { where, Model } = require("sequelize")
+const { where, Model, Op} = require("sequelize")
 
 async function getAllArticles(req, res) {
     try{
@@ -156,9 +156,9 @@ async function deleteComment(req, res) {
 
 async function filterComments(req,res){
     try{
-        const dateFrom = new Date(req.query.dateFrom)
-        const dateTo = new Date(req.query.dateTo)
-        const ArticlesWithComments = Article.findAll({
+        const dateFrom = new Date(Number(req.query.dateFrom))
+        const dateTo = new Date(Number(req.query.dateTo))
+        const ArticlesWithComments = await Article.findAll({
             include:[{
                 model: Comment,
                 where: {
@@ -168,7 +168,7 @@ async function filterComments(req,res){
                 }
             }]
         })
-        req.json(ArticlesWithComments)
+        res.json(ArticlesWithComments)
     }catch(err){
         console.error(err)
         res.status(500).json({error: "Ошибка"})

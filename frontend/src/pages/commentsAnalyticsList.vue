@@ -32,6 +32,7 @@
     onMounted(async () => {
         const query = route.query
         try {
+            
             const resp = await axios.get('http://localhost:3000/analytic/comments', {
             params: {
                 dateFrom: query.dateFrom,
