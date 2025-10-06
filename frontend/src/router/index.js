@@ -8,6 +8,10 @@ import commentsAnalytics from '@/pages/CommentsAnalytics.vue'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/articles'
+  },
+  {
     path: '/articles',
     name: 'Articles',
     component: ArticlesList
