@@ -4,8 +4,8 @@
             :subtitle="dates(dateFormat(article.createdAt), dateFormat(article.updatedAt))"
             :text="article.content">
             <v-card-actions>
-                 <RouterLink :to="`/article/:id/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
-                 <RouterLink :to="`/article/:id/delete`"><v-btn>Удалить</v-btn></RouterLink>
+                 <RouterLink :to="`/article/${article.id}/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
+                 <RouterLink :to="`/article${article.id}/delete`"><v-btn>Удалить</v-btn></RouterLink>
             </v-card-actions>
         </v-card>
         <h2>Комментарии</h2>
@@ -14,24 +14,23 @@
                 v-for="c in comments"
                 :key="c.id"
                 :title="c.content"
-                subtitle="dates(dateFormat(c.createdAt), dateFormat(c.updatedAt))" 
+                :subtitle="dates(dateFormat(c.createdAt), dateFormat(c.updatedAt))" 
             >
             <v-card-actions>
-                <RouterLink :to="`/comment/:id/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
-                <RouterLink :to="`/comment/:id/delete`"><v-btn>Удалить</v-btn></RouterLink> 
+                <RouterLink :to="`/comment/${article.id}/edit/${c.id}`"><v-btn>Редактировать</v-btn></RouterLink> 
+                <RouterLink :to="`/comment/${article.id}/delete/${c.id}`"><v-btn>Удалить</v-btn></RouterLink> 
             </v-card-actions>
             </v-list-item>
         </v-list>
         <h3>Добавить комментарий</h3>
-        <v-textarea label="Label"></v-textarea>
-        <RouterLink :to="`/comment/add`"><v-btn>Добавить</v-btn></RouterLink>
-
+        <v-textarea label="Напишите комментарий" rows = 3 v-model="newComment"></v-textarea>
+        <v-btn @click="addComment">Добавить</v-btn>
     </v-container>
 </template>
 <script setup>
     import { onMounted, ref } from 'vue'
     import axios from 'axios'
-    import { RouterLink, useRoute, useRouter } from 'vue-router'
+    import { RouterLink, useRoute} from 'vue-router'
 
     
     function dateFormat(date){
@@ -44,12 +43,13 @@
     function dates(d1, d2){
         return `создано ${d1}, изменено ${d2}`
     }
-    const article = ref({title:'', content: '', creratedAt: '', updatedAt:''})
+    const article = ref({title:'', content: '', createdAt: '', updatedAt:''})
     const comments = ref([])
-    const newComment = ref()
+    const newComment = ref('')
+
     const route = useRoute()
-    const router = useRouter()
     const id = route.params.id
+
     async function getComments(){
         const resp = await axios.get(`http://localhost:3000/article/${id}/comments/`)
         comments.value = resp.data        
@@ -57,6 +57,17 @@
     async function getArticle(){
         const resp = await axios.get(`http://localhost:3000/article/${id}`)
         article.value = resp.data        
+    }
+    async function addComment() {
+        try{
+            const cont = {content: newComment.value, articleId: Number(id)}
+            const resp = await axios.post(`http://localhost:3000/article/${id}/comment`, cont)
+            comments.value.push(resp.data)
+            newComment.value = ''
+        }catch(err){
+            console.error("Ошибка при добавлении комменатрия", err)
+        }
+        
     }
     
     onMounted(async()=>{

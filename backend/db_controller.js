@@ -30,7 +30,8 @@ async function getArticleById(req,res) {
 } 
 async function createArticle(req, res) {
     try{
-        const newArticle = await Article.create(req.body)
+        const body = req.body
+        const newArticle = await Article.create(body)
         res.json(newArticle)
     }catch(err){
         console.error(err)
@@ -102,6 +103,7 @@ async function getCommentById(req, res) {
 
 async function createComment(req, res) {
     try{
+        const body = req.body
         const newComment = await Comment.create(body)
         res.json(newComment)
     }catch(err){
