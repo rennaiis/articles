@@ -1,7 +1,6 @@
 <template>
     <v-container>
         <h1>Список статей</h1>
-        <v-row>
             <v-col v-for="article in articles" :key="article.id">
                 <v-card class = "pa-4 md-4">
                         <v-card-title>
@@ -23,7 +22,6 @@
             <RouterLink :to="`/analytic/comments`">
                 <v-btn color: primary >Анализ комментариев</v-btn>
             </RouterLink>
-        </v-row>
     </v-container>
 </template>
 
