@@ -30,7 +30,7 @@
 <script setup>
     import { onMounted, ref } from 'vue'
     import axios from 'axios'
-    import { RouterLink, useRoute} from 'vue-router'
+    import { RouterLink, useRoute, useRouter} from 'vue-router'
 
     
     function dateFormat(date){
@@ -46,7 +46,7 @@
     const article = ref({title:'', content: '', createdAt: '', updatedAt:''})
     const comments = ref([])
     const newComment = ref('')
-
+    const router = useRouter()
     const route = useRoute()
     const id = route.params.id
 
@@ -60,8 +60,8 @@
     }
     async function addComment() {
         try{
-            const cont = {content: newComment.value, articleId: Number(id)}
-            const resp = await axios.post(`http://localhost:3000/article/${id}/comment`, cont)
+            const payload = {content: newComment.value, articleId: Number(id)}
+            const resp = await axios.post(`http://localhost:3000/article/${id}/comment`, payload)
             comments.value.push(resp.data)
             newComment.value = ''
         }catch(err){
@@ -82,7 +82,7 @@
     async function deleteArticle(articleId) {
         try{
             const resp = await axios.delete(`http://localhost:3000/article/${articleId}`)
-            this.$router.push('/articles')
+            this.router.push('/articles')
         }catch(err){
             console.error("Ошибка при удалении статьи", err)
         }
