@@ -18,7 +18,7 @@
                 <RouterLink :to="`/comment/:id/edit`"><v-btn>Редактировать</v-btn></RouterLink> 
                 <RouterLink :to="`/comment/:id/delete`"><v-btn>Удалить</v-btn></RouterLink> 
             </v-card-actions>
-            </v-list-item>   
+            </v-list-item>
         </v-list>
         <h3>Добавить комментарий</h3>
         <v-textarea label="Label"></v-textarea>
@@ -27,4 +27,26 @@
     </v-container>
 </template>
 <script>
+    import { onMounted, ref } from 'vue'
+    import axios from 'axios'
+    import { RouterLink } from 'vue-router'
+    
+    function dateFormat(date){
+        if (!date){
+            return "-"
+        }else{
+            return new Date(date).toLocaleDateString()
+        }
+    }
+    const article = ref()
+    const comments = ref([])
+    async function getComments(){
+        const resp = axios.get(`http://localhost:3000/article/${id}/comments/`)
+        comments.value = resp.data        
+    }
+    async function getArticle(){
+        const resp = axios.get(`http://localhost:3000/article/${id}`)
+        article.value = resp.data        
+    }
+
 </script>
