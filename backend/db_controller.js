@@ -135,8 +135,12 @@ async function deleteComment(req, res) {
         if (!deletedComment){
             res.status(404).json({ error: 'Комментарий не найден' })
         }else{
-            await Comment.destroy(comment)
-            res.json.status(204).json({message: "Комментарий удалён"})
+            await Comment.destroy({
+                where:{
+                    id:id
+                }
+            })
+            res.status(204).json({message: "Комментарий удалён"})
         }
     }catch(err){
         console.error(err)

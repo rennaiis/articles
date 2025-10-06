@@ -18,7 +18,7 @@
             >
             <v-card-actions>
                 <RouterLink :to="`/comment/${article.id}/edit/${c.id}`"><v-btn>Редактировать</v-btn></RouterLink> 
-                <RouterLink :to="`/comment/${article.id}/delete/${c.id}`"><v-btn>Удалить</v-btn></RouterLink> 
+                <v-btn @click="deleteComment(c.id)">Удалить</v-btn>
             </v-card-actions>
             </v-list-item>
         </v-list>
@@ -69,7 +69,16 @@
         }
         
     }
-    
+    async function deleteComment(commentId) {
+        try{
+            const resp = await axios.delete(`http://localhost:3000/article/${id}/comment/${commentId}`)
+            comments.value.push(resp.data)
+            newComment.value = ''
+        }catch(err){
+            console.error("Ошибка при удалении комменатрия", err)
+        }
+        
+    }
     onMounted(async()=>{
         try{
             await getArticle()
