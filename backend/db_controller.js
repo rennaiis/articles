@@ -75,7 +75,6 @@ async function deleteArticle(req, res) {
     }
 }
 
-/*работа с комментариями!*/
 async function getAllСomments(req, res) {
     try{
         const articleId = req.params.articleId

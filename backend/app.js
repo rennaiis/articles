@@ -7,7 +7,7 @@ const routes = require("./routes")
 
 const app = express()
 app.use(cors({
-    origin:'http://localhost:8080',
+    origin:'http://localhost:5173',
     methods:['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
     allowedHeaders:['Content-Type']
 }))
@@ -19,15 +19,16 @@ const PORT = process.env.PORT
 async function test(){
     try{
         await sequelize.authenticate();
-        console.log("БД на месте")
     }catch (error){
         console.error('ошибка подключения к бд!', error)
     }
 }
+
 
 const { response } = require("express")
 
 /*app.get('/', (request, resoponse)=>{
     response.send("работает")
 })*/
+test()
 app.listen(PORT, ()=>console.log(`сервер запущен по ссылке http://localhost:${PORT}`))
