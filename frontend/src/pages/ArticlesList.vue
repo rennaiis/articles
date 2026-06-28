@@ -27,7 +27,7 @@
 
 
 <script setup>
-
+  const BACKEND = process.env.VUE_APP_ADRESS
   import { onMounted, ref } from 'vue'
   import axios from 'axios'
   import { RouterLink } from 'vue-router'
@@ -41,9 +41,11 @@
   const articles = ref([])
   onMounted(async()=>{
     try{
-        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/articles`)
+        console.log("ЗАПРОСЫ ОТСЮДА!!!" + BACKEND)
+        const resp = await axios.get(`${BACKEND}/articles`)
         articles.value = resp.data
     }catch(err){
+        
         console.error("Ошибка при выводе списка статей", err)
     }
   })

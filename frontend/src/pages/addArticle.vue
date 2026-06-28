@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+    const BACKEND = process.env.VUE_APP_ADRESS
     import { ref } from 'vue'
     import axios from 'axios'
     import { useRouter } from 'vue-router'
@@ -36,7 +37,7 @@
     async function onSubmit() {
         try{
             const payload = {title: title.value, content:content.value}
-            await axios.post(`${process.env.VUE_APP_API_ADRESS}/article`,payload)
+            await axios.post(`${BACKEND}/article`,payload)
             router.push('/articles')
         }catch(err){
             console.error("Ошибка при создании статьи", err)

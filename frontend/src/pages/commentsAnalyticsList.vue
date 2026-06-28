@@ -16,6 +16,7 @@
 </template>
 
 <script setup>
+    const BACKEND = process.env.VUE_APP_ADRESS
     import { ref, onMounted } from 'vue'
     import { useRoute } from 'vue-router'
     import axios from 'axios'
@@ -33,7 +34,7 @@
         const query = route.query
         try {
             
-            const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/analytic/comments`, {
+            const resp = await axios.get(`${BACKEND}/analytic/comments`, {
             params: {
                 dateFrom: query.dateFrom,
                 dateTo: query.dateTo

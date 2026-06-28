@@ -19,6 +19,7 @@
 </v-container>
 </template>
 <script setup>
+    const BACKEND = process.env.VUE_APP_ADRESS
     import {ref, onMounted} from 'vue'
     import axios from 'axios'
     import { useRouter, useRoute } from 'vue-router'
@@ -28,7 +29,7 @@
     const content = ref('')
     onMounted(async()=>{
         const articleId = route.params.id
-        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}`)
+        const resp = await axios.get(`${BACKEND}/article/${articleId}`)
         title.value = resp.data.title
         content.value = resp.data.content
     })
@@ -36,7 +37,7 @@
         try{
             const articleId = route.params.id
             const payload = {title: title.value, content:content.value}
-            await axios.put(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}`,payload)
+            await axios.put(`${BACKEND}/article/${articleId}`,payload)
             router.push('/articles')
         }catch(err){
             console.error("Ошибка при редактировании статьи", err)

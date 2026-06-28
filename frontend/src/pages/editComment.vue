@@ -15,7 +15,8 @@
 
 
 <script setup>
-   import {ref, onMounted} from 'vue'
+    const BACKEND = process.env.VUE_APP_ADRESS
+    import {ref, onMounted} from 'vue'
     import axios from 'axios'
     import { useRouter, useRoute } from 'vue-router'
     const router = useRouter()
@@ -24,13 +25,13 @@
     const commentId = route.params.id
     const articleId = route.params.articleId
     onMounted(async()=>{
-        const resp = await axios.get(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}/comment/${commentId}`)
+        const resp = await axios.get(`${BACKEND}/article/${articleId}/comment/${commentId}`)
         content.value = resp.data.content
     })
     async function onSubmit() {
         try{
             const payload = {content:content.value}
-            await axios.put(`${process.env.VUE_APP_API_ADRESS}/article/${articleId}/comment/${commentId}`,payload)
+            await axios.put(`${BACKEND}/article/${articleId}/comment/${commentId}`,payload)
             router.push(`/articles/${articleId}`)
         }catch(err){
             console.error("Ошибка при редактировании комментария", err)
