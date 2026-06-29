@@ -1,6 +1,6 @@
 # articles test task
 Приложение, позволяющее редактировать/смотреть/удалять/добавлять статьи и комментарии к ним.
-Технологии: node.js (express, sequalize), PostgreSQL, Vue.js, библиотека vuetify для стилей 
+Технологии: node.js (express, sequelize), PostgreSQL, Vue.js, библиотека vuetify для стилей. 
 
 ### Скриншоты: 
 <img width="1515" height="830" alt="image" src="https://github.com/user-attachments/assets/bd04695e-3388-4e7e-b6e6-0f4780160db6" />
